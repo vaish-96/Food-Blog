@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content  %}
+{% comment %} <div class="page-wrapper bg-gra-01 p-t-180 p-b-100 font-poppins"> {% endcomment %}
+    <div class="wrapper wrapper--w780">
+        <div class="card card-3">
+            <div class="card-heading"></div>
+            <div class="card-body">
+                <h2 class="title">Sign In</h2>
+                <form method="POST">
+                {% csrf_token %}
+                    <div class="input-group">
+                        <input class="input--style-3" type="text" placeholder="Name" name="username" id="username">
+                    </div>
+                    <div class="input-group">
+                        <input class="input--style-3" type="password" placeholder="Password" name="password" id="password">
+                    </div>
+                    <div class="p-t-10">
+                        <button class="btn btn--pill btn--green" type="submit">Sign In</button>
+                    </div>
+                </form>
+                <div class="form-group">
+                    {% if messages %}
+                        <ul class="messages">
+                    {% for message in messages %}
+                        <li style="color:red;font-size:20px;text-align:center;">
+                        <div class= "alert alert-custom fade in alert-dismissable show" style="color:red;font-size:20px;">{{ message }} </div>
+                        </li>
+                    {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% comment %} </div> {% endcomment %}
+{% endblock%}

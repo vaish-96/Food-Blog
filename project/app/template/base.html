@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+    <!-- Title Page-->
+    <title>Food Blogger</title>
+
+    <!-- Icons font CSS-->
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/datepicker/daterangepicker.css' %}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/main.css'%}" rel="stylesheet" media="all">
+    <style>
+        .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: black;
+        color: white;
+        text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+            <a class="navbar-brand" href="{% url 'app:home'  %}">Home</a>
+            </div>
+            <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Recipes</a></li>
+            <li><a href="{% url 'app:register'  %}">Sign UP</a></li>
+            {% if user.is_authenticated %}
+             <li><a href="{% url 'app:logout' %}">Sign Out</a></li>
+            {% else %}
+             <<li><a href="{% url 'app:login'  %}">Sign In</a></li>
+            {% endif %}
+            </ul>
+        </div>
+    </nav>
+{% block content %}{% endblock %}
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Copyright &copy; Your Website 2020</p>
+  </div>
+
+    <!-- Jquery JS-->
+    <script src="{% static 'vendor/jquery/jquery.min.js'%}"></script>
+    <!-- Vendor JS-->
+    <script src="{% static 'vendor/select2/select2.min.js'%}"></script>
+    <script src="{% static 'vendor/datepicker/moment.min.js'%}"></script>
+    <script src="{% static 'vendor/datepicker/daterangepicker.js'%}"></script>
+
+    <!-- Main JS-->
+    <script src="{% static 'js/global.js'%}"></script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+</html>
+<!-- end document-->
+
+{% comment %} https://www.kindmeal.my/recipes.htm?gclid=EAIaIQobChMI-fzV4o2t5wIV0BSPCh0QXwGsEAAYASAAEgLk8PD_BwE {% endcomment %}
