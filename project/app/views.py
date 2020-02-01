@@ -1,40 +1,50 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User, auth, Permission
 from django.contrib import messages
-from django.contrib.auth.models import User
+from django.http import HttpResponse
+from app.forms import RegisterForm
+from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def base(request):
     return render(request,'base.html')
 
 def register(request):
-    registered = False
     if request.method == 'POST':
-        user = User.objects.create_user('xyz')
-        user.username = request.POST['username']
-        user.email = request.POST['email']
-        pword = request.POST['password']
-        confirmword = request.POST['cpassword']
-        user.is_staff = True
-        if pword == confirmword:
-            user.set_password(pword) 
-            user.save()
-            registered=True
-        else:
-            messages.error(request,'Password not matched')
-    return render(request,'register.html',{'registered':registered})
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            if User.objects.filter(username=form.cleaned_data['username']).exists():
+                return render(request, 'register.html', {'form': form,'error_message': 'Username already exists.'})
+            elif User.objects.filter(email=form.cleaned_data['email']).exists():
+                return render(request, 'register.html', {'form': form,'error_message': 'Email already exists.'})
+            elif form.cleaned_data['password'] != form.cleaned_data['password_repeat']:
+                return render(request, 'register.html', {'form': form,'error_message': 'Passwords do not match.'})
+            else:
+                user = User.objects.create_user(
+                    form.cleaned_data['username'],
+                    form.cleaned_data['email'],
+                    form.cleaned_data['password']
+                )
+                user.first_name = form.cleaned_data['first_name']
+                user.last_name = form.cleaned_data['last_name']
+                user.save()
+
+                auth.login(request, user)
+                return redirect('app:login')
+    else:
+        form = RegisterForm()
+        return render(request, 'register.html', {'form': form})
 
 def login(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = auth.authenticate(username=username,password=password)
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request,username=username,password=password)
         if user is not None and user.is_active:
-            auth.login(request, user)
+            auth.login(request,user)
             return  redirect('app:items')
         else:
-            messages.error(request,'Invalid Username or Password')
-            return redirect('app:login')
+            return render(request,'login.html',{'error_message': 'Invalid Username or Password'})
     else:
         return render(request,'login.html')
 

@@ -1,32 +1,63 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content  %}
-{% comment %} <div class="page-wrapper bg-gra-01 p-t-180 p-b-100 font-poppins"> {% endcomment %}
-    <div class="wrapper wrapper--w780">
-        <div class="card card-3">
-            <div class="card-heading"></div>
-            <div class="card-body">
-                <h2 class="title">Sign UP</h2>
-                <form method="POST">
-                {% csrf_token %}
-                    <div class="input-group">
-                        <input class="input--style-3" type="text" placeholder="Name" name="username" id="username">
+<div class="container">
+        <form action="{% url 'app:register' %}" method="post">
+            {% csrf_token %}
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Sign up</div>
+                    <div class="panel-body">
+                        {% if error_message %}
+                            <p class="bg-danger p-d ml-b">{{ error_message }}</p>
+                        {% endif %}
+
+                        <div class="form-group clearfix">
+                            <label for="{{ form.username.id_for_label }}" class="col-md-4 control-label text-right">Username<span class="text-red">*</span>:</label>
+                            <div class="col-md-6">
+                                {{ form.username }}
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="{{ form.email.id_for_label }}" class="col-md-4 control-label text-right">Email<span class="text-red">*</span>:</label>
+                            <div class="col-md-6">
+                                {{ form.email }}
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="{{ form.password.id_for_label }}" class="col-md-4 control-label text-right">Password<span class="text-red">*</span>:</label>
+                            <div class="col-md-6">
+                                {{ form.password }}
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="{{ form.password_repeat.id_for_label }}" class="col-md-4 control-label text-right">Confirm password:</label>
+                            <div class="col-md-6">
+                                {{ form.password_repeat }}
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="{{ form.first_name.id_for_label }}" class="col-md-4 control-label text-right">First Name:</label>
+                            <div class="col-md-6">
+                                {{ form.first_name }}
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="{{ form.last_name.id_for_label }}" class="col-md-4 control-label text-right">Last Name:</label>
+                            <div class="col-md-6">
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-md-offset-4">
+                            <input type="submit" value="Sign up" class="btn btn-success">
+                        </div>
+                        <div class="col-md-6 col-md-offset-4">
+                            <br>
+                            <p>Already have an account? <a href="{% url 'app:login'  %}">Sign in</a></p>
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <input class="input--style-3" type="email" placeholder="Email" name="email" id="email">
-                    </div>
-                    <div class="input-group">
-                        <input class="input--style-3" type="password" placeholder="Password" name="password" id="password">
-                    </div>
-                    <div class="input-group">
-                        <input class="input--style-3" type="password" placeholder="Confirm Password" name="cpassword" id="cpassword">
-                    </div>
-                    <div class="p-t-10">
-                        <button class="btn btn--pill btn--green" type="submit">Submit</button>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
+        </form>
     </div>
-{% comment %} </div> {% endcomment %}
 {% endblock%}

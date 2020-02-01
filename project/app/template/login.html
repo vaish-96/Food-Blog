@@ -1,25 +1,39 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content  %}
-{% comment %} <div class="page-wrapper bg-gra-01 p-t-180 p-b-100 font-poppins"> {% endcomment %}
-    <div class="wrapper wrapper--w780">
-        <div class="card card-3">
-            <div class="card-heading"></div>
-            <div class="card-body">
-                <h2 class="title">Sign In</h2>
-                <form method="POST">
-                {% csrf_token %}
-                    <div class="input-group">
-                        <input class="input--style-3" type="text" placeholder="Name" name="username" id="username">
+<div class="container">
+        <form action="{% url 'app:login' %}" method="post">
+            {% csrf_token %}
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Sign In</div>
+                    <div class="panel-body">
+                        {% if error_message %}
+                            <p class="bg-danger p-d ml-b">{{ error_message }}</p>
+                        {% endif %}
+                        <div class="form-group clearfix">
+                            <label for="username" class="col-md-4 control-label text-right">Username :</label>
+                            <div class="col-md-6">
+                                <input type="text" name="username" placeholder="Enter Username">
+                            </div>
+                        </div>
+                        <div class="form-group clearfix">
+                            <label for="password" class="col-md-4 control-label text-right">Password :</label>
+                            <div class="col-md-4">
+                            <input type="password" id="password" name="password" placeholder="Enter Password">
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-md-offset-4">
+                            <input type="submit" value="Sign In" class="btn btn-success">
+                        </div>
                     </div>
-                    <div class="input-group">
-                        <input class="input--style-3" type="password" placeholder="Password" name="password" id="password">
-                    </div>
-                    <div class="p-t-10">
-                        <button class="btn btn--pill btn--green" type="submit">Sign In</button>
-                    </div>
-                </form>
-                <div class="form-group">
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock%}
+
+                {% comment %} <div class="form-group">
                     {% if messages %}
                         <ul class="messages">
                     {% for message in messages %}
@@ -29,9 +43,4 @@
                     {% endfor %}
                         </ul>
                     {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-{% comment %} </div> {% endcomment %}
-{% endblock%}
+                </div> {% endcomment %}
