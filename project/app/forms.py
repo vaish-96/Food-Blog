@@ -1,4 +1,5 @@
 from django import forms
+from app.models import Items
 
 class RegisterForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -8,3 +9,8 @@ class RegisterForm(forms.Form):
     first_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     last_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
     phone_number = forms.CharField(widget=forms.NumberInput(attrs={'class':'form-control'}), required=False)
+
+class Profileform(forms.ModelForm):
+    class Meta():
+        model= Items
+        fields=('profile_pic','food_image')

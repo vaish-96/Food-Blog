@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User, auth, Permission
 from django.contrib import messages
 from django.http import HttpResponse
-from app.forms import RegisterForm
+from app.forms import RegisterForm, Profileform
 from django.contrib.auth import authenticate, login
-
+from app.models import Items
 # Create your views here.
 def base(request):
     return render(request,'base.html')
@@ -52,7 +52,44 @@ def home(request):
     return render(request,'home.html')
 
 def items(request):
-    return render(request,'items.html')
+    if request.method == "POST":
+        form = Profileform(request.POST, request.FILES) 
+        if form.is_valid():
+            item = Items(author=request.POST['author'],
+                        profile_pic=request.FILES['profile_pic'],
+                        item_name=request.POST['item_name'],
+                        servings =request.POST['servings'],
+                        time =request.POST['time'],
+                        food_image =request.FILES['food_image'],
+                        ingredients =request.POST['ingredients'],
+                        direction =request.POST['direction'],)
+            
+            item.save()
+        return redirect('/items/')
+    else:
+        form = Profileform()
+        items = Items.objects.all()
+        return render(request,'items.html',{'items':items,'form':form})
+
+def edititems(request, id):
+    if request.method == 'POST':
+        item = Items.objects.get(id=id)
+        item.author = request.POST['author']
+        item.profile_pic = request.FILES['profile_pic']
+        item.item_name = request.POST['item_name']
+        item.servings = request.POST['servings']
+        item.time = request.POST['time']
+        item.food_image = request.FILES['food_image']
+        item.ingredients = request.POST['ingredients']
+        item.direction = request.POST['direction']
+        item.save()
+        return redirect('/items/')
+    else:
+        return redirect('/items/')
+
+def recipe(request):
+    items = Items.objects.all()
+    return render(request,'recipe.html',{'items':items})
 
 def logout(request):
     auth.logout(request)

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+<a href="{% url 'app:items' %}">Add Food Items</a>
+{% for item in items %}
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-body">
+        <img src="/{{ item.food_image.url }}" height="150" width="150">
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock%}
