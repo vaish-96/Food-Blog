@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content%}
+<form action="" name="viewrecp" id="viewrecp" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ item.food_image.url }}" style="align:center;" alt="image-{{ item.item_name }}" width="140" height="160" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+            <br>
+                <label>Item Name :</label> 
+                {{ item.item_name }}
+            </div>
+            <div class="col-md-2">
+            <br>
+                <label>Servings :</label> 
+                {{ item.servings }}
+            </div>
+            <div class="col-md-3">
+            <br>
+                <label>Prep Time :</label> 
+                {{ item.preparation_time }}
+            </div>
+            <div class="col-md-3">
+            <br>
+                <label>Cooking Time :</label> 
+                {{ item.cooking_time }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+            <br>
+            <label>Ingredients :</label>
+            {{ item.ingredients }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+            <br>
+            <label>Direction :</label>
+            {{ item.direction }}
+            </div>
+        </div>
+    </div>
+    <div class="card" style="margin: 10px 0px 10px 0px;"></div>
+    <div class="col-md-12" style="float:right;">
+        <a href="{% url 'app:recipe' %}">
+            <button type="button" class="btn btn-primary pull-right">
+             <i class="fa fa-angle-left"></i><i class="fa fa-angle-left"></i> Back</button>
+        </a>
+    </div>
+</form>
+{% endblock%}

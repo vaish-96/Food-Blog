@@ -59,7 +59,8 @@ def items(request):
                         profile_pic=request.FILES['profile_pic'],
                         item_name=request.POST['item_name'],
                         servings =request.POST['servings'],
-                        time =request.POST['time'],
+                        preparation_time =request.POST['preparation_time'],
+                        cooking_time =request.POST['cooking_time'],
                         food_image =request.FILES['food_image'],
                         ingredients =request.POST['ingredients'],
                         direction =request.POST['direction'],)
@@ -78,7 +79,8 @@ def edititems(request, id):
         item.profile_pic = request.FILES['profile_pic']
         item.item_name = request.POST['item_name']
         item.servings = request.POST['servings']
-        item.time = request.POST['time']
+        item.preparation_time = request.POST['preparation_time']
+        item.cooking_time = request.POST['cooking_time']
         item.food_image = request.FILES['food_image']
         item.ingredients = request.POST['ingredients']
         item.direction = request.POST['direction']
@@ -90,6 +92,10 @@ def edititems(request, id):
 def recipe(request):
     items = Items.objects.all()
     return render(request,'recipe.html',{'items':items})
+
+def viewrecipe(request,id):
+    item = Items.objects.get(id=id)
+    return render(request,'viewrecipe.html',{'item':item})
 
 def logout(request):
     auth.logout(request)

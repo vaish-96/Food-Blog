@@ -1,14 +1,48 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content%}
-<a href="{% url 'app:items' %}">Add Food Items</a>
-{% for item in items %}
+{% comment %} <a href="{% url 'app:items' %}">Add Food Items</a> {% endcomment %}
+{% comment %} {% for item in items %}
 <div class="container">
-  <div class="panel panel-default">
     <div class="panel-body">
-        <img src="/{{ item.food_image.url }}" height="150" width="150">
+        <img src="{{ item.food_image.url }}" alt="image-{{ item.item_name }}" width="140" height="160" />
+        <ul>
+          <li>Item Name : {{ item.item_name }}</li>
+          <li>Servings : {{ item.servings }}</li>
+          <li>Preparation Time : {{ item.preparation_time }}</li>
+          <li>Cooking Time : {{ item.cooking_time }}</li>
+          <br>
+          <a href="{% url 'app:viewrecipe' item.id %}"><button type="button" class="btn btn-primary">View</button></a>
+        </ul>
     </div>
-  </div>
+</div> {% endcomment %}
+<div class="container">
+<table id="example" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td><img src="{{ item.food_image.url }}" alt="image-{{ item.item_name }}" width="140" height="160" /></td>
+            <td>
+              <ul>
+                <li>Item Name : {{ item.item_name }}</li>
+                <li>Servings : {{ item.servings }}</li>
+                <li>Preparation Time : {{ item.preparation_time }}</li>
+                <li>Cooking Time : {{ item.cooking_time }}</li>
+              </ul>
+            </td>
+            <td><a href="{% url 'app:viewrecipe' item.id %}"><button type="button" class="btn btn-primary">View</button></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 </div>
-{% endfor %}
+
+{% comment %} {% endfor %} {% endcomment %}
 {% endblock%}

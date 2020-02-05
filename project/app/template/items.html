@@ -16,7 +16,8 @@
             <th>Image</th>
             <th>Item Name</th>
             <th>Servings</th>
-            <th>Time</th>
+            <th>Preparation Time</th>
+            <th>Cooking Time</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -28,13 +29,14 @@
             <td><img src="{{ item.food_image.url }}" alt="image-{{ item.item_name }}" width="100" height="110" /></td>
             <td>{{ item.item_name }}</td>
             <td>{{ item.servings }}</td>
-            <td>{{ item.time }}</td>
+            <td>{{ item.preparation_time }}</td>
+            <td>{{ item.cooking_time }}</td>
             <td data-toggle="tooltip" title="Click to edit">
                 <a href="#" data-toggle="modal" data-target="#editrecipe{{ item.id }}">
-                    <i class="fa fa-edit" >Edit</i> 
+                    <i class="fa fa-edit" ></i> 
                 </a>
                 <a title="View Recipe" href="#"  data-toggle="modal" data-target="#viewrecipe{{ item.id }}">
-                    <i class="fa fa-link fa-lg" aria-hidden="true">View</i>
+                    <i class="fa fa-eye" aria-hidden="true"></i>
                 </a>
             </td>
         </tr>
@@ -57,29 +59,36 @@
                             <input type="text" class="form-control" id="author" name="author" value=""required />
                         </div>
                         <div class="col-md-3">
-                            <label for="profile_pic">Upload Profile Pic<span style="color:red;">*</span></label>
+                            <label for="profile_pic">Upload Profile Pic</label>
                             {{ form.profile_pic }}
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <br>
+                        <div class="col-md-3">
                             <label for="item_name">Item Name<span style="color:red;">*</span></label>
                             <input type="text" class="form-control" id="item_name" name="item_name" value=""required />
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label for="servings">Servings<span style="color:red;">*</span></label>
                             <input type="text" class="form-control" id="servings" name="servings" value="">
                         </div>
                         <div class="col-md-3">
-                            <label for="time">Time<span style="color:red;">*</span></label>
-                            <input type="text" class="form-control" id="time" name="time" value="">
+                            <label for="preparation_time">Preparation Time<span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="preparation_time" name="preparation_time" value="">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cooking_time">Cooking Time<span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="cooking_time" name="cooking_time" value="">
                         </div>
                         <div class="col-md-2">
+                        <br>
                             <label for="description">Upload Image<span style="color:red;">*</span></label>
                             {{ form.food_image }}
                         </div>
                     </div>
                     <div class="row">
+                    <br>
                         <div class="col-md-6">
                         <br>
                             <label for="ingredients">Ingredients<span style="color:red;">*</span></label>
@@ -117,37 +126,44 @@
                             <input type="text" class="form-control" id="author" name="author" value="{{ item.author }}"required />
                         </div>
                         <div class="col-md-3">
-                            <label for="profile_pic">Upload Profile Pic<span style="color:red;">*</span></label> 
+                            <label for="profile_pic">Upload Profile Pic</label> 
                             <input type="text" class="form-control" id="profile_pic" name="profile_pic" value="{{ item.profile_pic }}">    
                         </div>
-                        <div class="col-md-3">
+                        {% comment %} <div class="col-md-3">
                         <br>
                             <label>{{ form.profile_pic }}</label>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                     <div class="row">
+                    <br>
                         <div class="col-md-4">
                             <label for="item_name">Item Name<span style="color:red;">*</span></label>
                             <input type="text" class="form-control" id="item_name" name="item_name" value="{{ item.item_name }}"required />
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <label for="servings">Servings<span style="color:red;">*</span></label>
                             <input type="text" class="form-control" id="servings" name="servings" value="{{ item.servings }}">
                         </div>
                         <div class="col-md-3">
-                            <label for="time">Time<span style="color:red;">*</span></label>
-                            <input type="text" class="form-control" id="time" name="time" value="{{ item.time }}">
+                            <label for="preparation_time">Preparation Time<span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="preparation_time" name="preparation_time" value="{{ item.preparation_time }}">
                         </div>
-                        <div class="col-md-4">
-                            <label for="food_image">Upload Image<span style="color:red;">*</span></label>
-                            <input type="text" class="form-control" id="food_image" name="food_image" value="{{ item.food_image }}">
+                        <div class="col-md-3">
+                            <label for="cooking_time">Cooking Time<span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="cooking_time" name="cooking_time" value="{{ item.cooking_time }}">
                         </div>
                         <div class="col-md-3">
                         <br>
-                            <label>{{ form.food_image }}</label>
+                            <label for="food_image">Upload Image<span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="food_image" name="food_image" value="{{ item.food_image }}">
                         </div>
+                        {% comment %} <div class="col-md-3">
+                        <br><br>
+                            <label>{{ form.food_image }}</label>
+                        </div> {% endcomment %}
                     </div>
                     <div class="row">
+                    <br>
                         <div class="col-md-6">
                         <br>
                             <label for="ingredients">Ingredients<span style="color:red;">*</span></label>
@@ -175,7 +191,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="viewrecipeLabel">View Recipe</h5>
+                <h5 class="modal-title" id="viewrecipeLabel">Recipe of {{ item.item_name }}</h5>
             </div>
             <form action="" name="viewrecp" id="viewrecp" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -186,20 +202,25 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                         <br>
                         <label>Item Name :</label> 
                         {{ item.item_name }}
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                         <br>
                         <label>Servings :</label> 
                         {{ item.servings }}
                         </div>
                         <div class="col-md-3">
                         <br>
+                        <label>Prep Time :</label> 
+                        {{ item.preparation_time }}
+                        </div>
+                        <div class="col-md-3">
+                        <br>
                         <label>Cooking Time :</label> 
-                        {{ item.time }}
+                        {{ item.cooking_time }}
                         </div>
                     </div>
                     <div class="row">
@@ -218,7 +239,7 @@
                     </div>
                     <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                </div>
+                    </div>
                 </div>
             </form>
         </div>
