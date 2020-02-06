@@ -2,6 +2,13 @@
 {% load static %}
 {% block content  %}
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
 <style>
 * {box-sizing: border-box;}
 body {font-family: Verdana, sans-serif;}
@@ -72,26 +79,37 @@ img {vertical-align: middle;}
 @media only screen and (max-width: 300px) {
   .text {font-size: 11px}
 }
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  background-color: #111;
+  text-align: right;
+}
+
 </style>
 
 <div class="slideshow-container">
 
 <div class="mySlides fade">
   <div class="numbertext"></div>
-  <img src="https://images.pexels.com/photos/132694/pexels-photo-132694.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" width="1000" height="500">
-  <div class="text">Caption Text</div>
+  <img src="https://files2.hungryforever.com/wp-content/uploads/2017/09/13105008/feature-image-chole-chaat.jpg" width="1000" height="500">
+  <div class="text"></div>
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext"></div>
-  <img src="https://images.pexels.com/photos/326278/pexels-photo-326278.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" width="1000" height="500">
-  <div class="text">Caption Two</div>
+  <img src="https://i2.wp.com/www.vegrecipesofindia.com/wp-content/uploads/2018/03/raj-kachori-chaat.jpg" width="1000" height="500">
+  <div class="text"></div>
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext"></div>
-  <img src="https://images.pexels.com/photos/372882/pexels-photo-372882.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" width="1000" height="500">
-  <div class="text">Caption Three</div>
+  <img src="https://i2.wp.com/www.motherssecretrecipe.com/wp-content/uploads/2019/05/gobi-paratha.jpg?fit=3584%2C2688&ssl=1" width="1000" height="500">
+  <div class="text"></div>
 </div>
 
 </div>
@@ -102,6 +120,12 @@ img {vertical-align: middle;}
   <span class="dot"></span> 
   <span class="dot"></span> 
 </div>
+
+<div class="footer">
+  <div class="footer-copyright text-center py-3" style="color:white;">Copyright © Food Blog 2020
+  </div>
+</div>
+  
 
 <script>
 var slideIndex = 0;
@@ -126,3 +150,4 @@ function showSlides() {
 </script>
 
 {% endblock%}
+
