@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content  %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  background-color: #111;
+  text-align: right;
+}
+</style>
 <div class="container">
         <form action="{% url 'app:login' %}" method="post">
             {% csrf_token %}
@@ -31,16 +43,8 @@
             </div>
         </form>
     </div>
+<div class="footer">
+  <div class="footer-copyright text-center py-3" style="color:white;">Copyright © Food Blog 2020
+  </div>
+</div>
 {% endblock%}
-
-                {% comment %} <div class="form-group">
-                    {% if messages %}
-                        <ul class="messages">
-                    {% for message in messages %}
-                        <li style="color:red;font-size:20px;text-align:center;">
-                        <div class= "alert alert-custom fade in alert-dismissable show" style="color:red;font-size:20px;">{{ message }} </div>
-                        </li>
-                    {% endfor %}
-                        </ul>
-                    {% endif %}
-                </div> {% endcomment %}

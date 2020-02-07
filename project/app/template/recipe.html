@@ -1,21 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content%}
-{% comment %} <a href="{% url 'app:items' %}">Add Food Items</a> {% endcomment %}
-{% comment %} {% for item in items %}
-<div class="container">
-    <div class="panel-body">
-        <img src="{{ item.food_image.url }}" alt="image-{{ item.item_name }}" width="140" height="160" />
-        <ul>
-          <li>Item Name : {{ item.item_name }}</li>
-          <li>Servings : {{ item.servings }}</li>
-          <li>Preparation Time : {{ item.preparation_time }}</li>
-          <li>Cooking Time : {{ item.cooking_time }}</li>
-          <br>
-          <a href="{% url 'app:viewrecipe' item.id %}"><button type="button" class="btn btn-primary">View</button></a>
-        </ul>
-    </div>
-</div> {% endcomment %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  background-color: #111;
+  text-align: right;
+}
+</style>
 <div class="container">
 <table id="example" class="table table-striped" style="width:100%">
     <thead>
@@ -43,6 +40,8 @@
     </tbody>
 </table>
 </div>
-
-{% comment %} {% endfor %} {% endcomment %}
+<div class="footer">
+  <div class="footer-copyright text-center py-3" style="color:white;">Copyright © Food Blog 2020
+  </div>
+</div>
 {% endblock%}
