@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from app.forms import RegisterForm, Profileform
 from django.contrib.auth import authenticate, login
 from app.models import Items
-# Create your views here.
+
 def base(request):
     return render(request,'base.html')
 
@@ -64,8 +64,9 @@ def items(request):
                         food_image =request.FILES['food_image'],
                         ingredients =request.POST['ingredients'],
                         direction =request.POST['direction'],)
-            
             item.save()
+        else:
+            pass
         return redirect('/items/')
     else:
         form = Profileform()
