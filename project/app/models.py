@@ -1,7 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator
 
-
 class Items(models.Model):
     alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Only alphanumeric characters are allowed.')
     author = models.CharField(max_length=255)
@@ -15,6 +14,8 @@ class Items(models.Model):
     direction = models.TextField(max_length=None,validators=[alphanumeric],default="Text Here")
 
     def __str__(self):
-        return self.item_name
-    
+        return self.author
+
+class Author_Page(models.Model):
+    author = models.ForeignKey(Items,on_delete=models.CASCADE)
     

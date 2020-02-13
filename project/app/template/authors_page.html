@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content  %}
+<div class="container">
+<table id="example" class="table table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>Recipes by {{ auth }}</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for page in items %}
+        <tr>
+            <td><img src="{{ page.profile_pic.url }}" width="140" height="160" /></td>
+            <td>
+              <ul>
+                <li>Item Name : {{ page.item_name }}</li>
+                <li>Servings : {{ page.servings }}</li>
+                <li>Preparation Time : {{ page.preparation_time }}</li>
+                <li>Cooking Time : {{ page.cooking_time }}</li>
+              </ul>
+            </td>
+            <td><a href="{% url 'app:viewrecipe' page.id %}"><button type="button" class="btn btn-primary">View</button></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock%}

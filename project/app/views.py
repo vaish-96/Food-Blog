@@ -1,10 +1,10 @@
 from django.shortcuts import render,redirect
-from django.contrib.auth.models import User, auth, Permission
+from django.contrib.auth.models import User, Group, auth, Permission
 from django.contrib import messages
 from django.http import HttpResponse
 from app.forms import RegisterForm, Profileform
 from django.contrib.auth import authenticate, login
-from app.models import Items
+from app.models import Items, Author_Page
 
 def base(request):
     return render(request,'base.html')
@@ -27,7 +27,11 @@ def register(request):
                 )
                 user.first_name = form.cleaned_data['first_name']
                 user.last_name = form.cleaned_data['last_name']
+                user.is_staff = True
                 user.save()
+
+                my_group = Group.objects.get(name='member') 
+                my_group.user_set.add(user)
 
                 auth.login(request, user)
                 return redirect('app:login')
@@ -77,12 +81,12 @@ def edititems(request, id):
     if request.method == 'POST':
         item = Items.objects.get(id=id)
         item.author = request.POST['author']
-        item.profile_pic = request.FILES['profile_pic']
+        # item.profile_pic = request.FILES['profile_pic']
         item.item_name = request.POST['item_name']
         item.servings = request.POST['servings']
         item.preparation_time = request.POST['preparation_time']
         item.cooking_time = request.POST['cooking_time']
-        item.food_image = request.FILES['food_image']
+        # item.food_image = request.FILES['food_image']
         item.ingredients = request.POST['ingredients']
         item.direction = request.POST['direction']
         item.save()
@@ -98,8 +102,10 @@ def viewrecipe(request,id):
     item = Items.objects.get(id=id)
     return render(request,'viewrecipe.html',{'item':item})
 
+def authors_page(request,id):
+    auth = Items.objects.filter(id = id).values_list('author',flat=True)
+    return render(request,'authors_page.html',{'auth':auth})
+
 def logout(request):
     auth.logout(request)
-    return  redirect('app:home')
-
-    # https://carlofontanos.com/creating-a-registration-page-in-django/
+    return redirect('app:home')
