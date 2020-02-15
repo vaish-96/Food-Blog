@@ -103,8 +103,11 @@ def viewrecipe(request,id):
     return render(request,'viewrecipe.html',{'item':item})
 
 def authors_page(request,id):
-    auth = Items.objects.filter(id = id).values_list('author',flat=True)
-    return render(request,'authors_page.html',{'auth':auth})
+    item = Items.objects.get(id = id)
+    auth = Items.objects.values_list('author',flat=True).get(id = id)
+    pages = Items.objects.all().filter(author=auth)
+    count = pages.count()
+    return render(request,'authors_page.html',{'auth':auth,'pages':pages,'item':item,'count':count})
 
 def logout(request):
     auth.logout(request)
