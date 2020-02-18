@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from app.forms import RegisterForm, Profileform
 from django.contrib.auth import authenticate, login
-from app.models import Items, Author_Page
+from app.models import Items, D_Page
 
 def base(request):
     return render(request,'base.html')
@@ -67,7 +67,8 @@ def items(request):
                         cooking_time =request.POST['cooking_time'],
                         food_image =request.FILES['food_image'],
                         ingredients =request.POST['ingredients'],
-                        direction =request.POST['direction'],)
+                        direction =request.POST['direction'],
+                        item_type =request.POST['item_type'],)
             item.save()
         else:
             pass
@@ -89,6 +90,7 @@ def edititems(request, id):
         # item.food_image = request.FILES['food_image']
         item.ingredients = request.POST['ingredients']
         item.direction = request.POST['direction']
+        item.item_type = request.POST['item_type']
         item.save()
         return redirect('/items/')
     else:

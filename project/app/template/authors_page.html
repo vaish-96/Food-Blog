@@ -206,13 +206,13 @@ a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, t
 				</div>
 				<div class="profile-usermenu">
 					<ul class="nav">
-						<li class="active">
-							<a href="#">
-							<i class="glyphicon glyphicon-home"></i>
-							Overview </a>
+						<li>
+							<a href="{% url 'app:authpage' item.id %}">
+							<i class="fa fa-list" aria-hidden="true"></i>
+							List Of Items</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="#" data-toggle="modal" data-target="#settings">
 							<i class="glyphicon glyphicon-user"></i>
 							Account Settings </a>
 						</li>
@@ -284,4 +284,77 @@ a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, t
 		</div>
 	</div>
 </div>
+<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="settingsLabel"
+    aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="settingsLabel">Add Recipes</h5>
+            </div>
+            <form action="" name="addrecp" id="addrecp" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="author">Author Name<span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="author" name="author" value=""required />
+                        </div>
+                        <div class="col-md-3">
+                            <label for="profile_pic">Upload Profile Pic</label>
+                            {{ form.profile_pic }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <br>
+                        <div class="col-md-3">
+                            <label for="item_name">Item Name<span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="item_name" name="item_name" value=""required />
+                        </div>
+                        <div class="col-md-2">
+                            <label for="servings">Servings<span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="servings" name="servings" value="">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="preparation_time">Preparation Time<span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="preparation_time" name="preparation_time" value="">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="cooking_time">Cooking Time<span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="cooking_time" name="cooking_time" value="">
+                        </div>
+                        <div class="col-md-3">
+                        <br>
+                            <label for="item_type">Type<span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="item_type" name="item_type" value="">
+                        </div>
+                        <div class="col-md-2">
+                        <br>
+                            <label for="description">Upload Image<span style="color:red;">*</span></label>
+                            {{ form.food_image }}
+                        </div>
+                    </div>
+                    <div class="row">
+                    <br>
+                        <div class="col-md-6">
+                        <br>
+                            <label for="ingredients">Ingredients<span style="color:red;">*</span></label>
+                            <textarea wrap="off" name="ingredients" id="ingredients" cols="30" rows="5"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                        <br>
+                            <label for="description">Direction<span style="color:red;">*</span></label>
+                            <textarea wrap="off" name="direction" id="direction" cols="30" rows="5"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="save">Save</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+</script>
 {% endblock%}

@@ -12,10 +12,11 @@ class Items(models.Model):
     food_image = models.ImageField(upload_to='food_pic',blank=True)
     ingredients = models.TextField(max_length=None,validators=[alphanumeric],default="Text Here")
     direction = models.TextField(max_length=None,validators=[alphanumeric],default="Text Here")
+    item_type = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.author
+        return self.item_type
 
-class Author_Page(models.Model):
-    author = models.ForeignKey(Items,on_delete=models.CASCADE)
+class D_Page(models.Model):
+    item_type_list = models.ForeignKey(Items,on_delete=models.CASCADE)
     
