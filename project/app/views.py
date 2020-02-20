@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from app.forms import RegisterForm, Profileform
 from django.contrib.auth import authenticate, login
-from app.models import Items, D_Page
+from app.models import Items, Items_List
 
 def base(request):
     return render(request,'base.html')
@@ -27,11 +27,7 @@ def register(request):
                 )
                 user.first_name = form.cleaned_data['first_name']
                 user.last_name = form.cleaned_data['last_name']
-                user.is_staff = True
                 user.save()
-
-                my_group = Group.objects.get(name='member') 
-                my_group.user_set.add(user)
 
                 auth.login(request, user)
                 return redirect('app:login')
@@ -69,14 +65,28 @@ def items(request):
                         ingredients =request.POST['ingredients'],
                         direction =request.POST['direction'],
                         item_type =request.POST['item_type'],)
+            current_user = request.user.id
             item.save()
+            name = item.id
+            add_author(request,current_user,name)
         else:
             pass
         return redirect('/items/')
     else:
         form = Profileform()
-        items = Items.objects.all()
+        current_user = request.user.id
+        items = Items_List.objects.values('item_list_id').filter(user_name_id = current_user).select_related('item_list')
+        # for item in items:
+            # lists = Items_List.objects.all().select_related('item_list').values('item_list_id').filter(user_name_id = current_user)
+            # item.assignedlists = lists
         return render(request,'items.html',{'items':items,'form':form})
+
+def add_author(request,current_user,name):
+    assigndata = Items_List(
+        user_name_id = current_user,
+        item_list_id = name,
+    )
+    assigndata.save()
 
 def edititems(request, id):
     if request.method == 'POST':

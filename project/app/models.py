@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
 class Items(models.Model):
@@ -15,8 +16,8 @@ class Items(models.Model):
     item_type = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.item_type
+        return self.item_name
 
-class D_Page(models.Model):
-    item_type_list = models.ForeignKey(Items,on_delete=models.CASCADE)
-    
+class Items_List(models.Model):
+    user_name = models.ForeignKey(User,on_delete=models.CASCADE)
+    item_list = models.ForeignKey(Items,on_delete=models.CASCADE)
