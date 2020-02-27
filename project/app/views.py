@@ -56,6 +56,7 @@ def items(request):
         form = Profileform(request.POST, request.FILES) 
         if form.is_valid():
             item = Items(author=request.POST['author'],
+                        user=request.user.id,
                         profile_pic=request.FILES['profile_pic'],
                         item_name=request.POST['item_name'],
                         servings =request.POST['servings'],
@@ -75,10 +76,12 @@ def items(request):
     else:
         form = Profileform()
         current_user = request.user.id
-        items = Items_List.objects.values('item_list_id').filter(user_name_id = current_user).select_related('item_list')
-        # for item in items:
-            # lists = Items_List.objects.all().select_related('item_list').values('item_list_id').filter(user_name_id = current_user)
-            # item.assignedlists = lists
+        print(current_user)
+        # items = Items_List.objects.all().select_related('item_list').values_list('item_list_id',flat=True).filter(user_name_id = current_user)
+        # auth = Items.objects.values_list('user',flat=True).get(id = current_user)
+        # items = Items.objects.filter(user=auth)
+        # items = Items.objects.all().filter(user=current_user).values('item_name','author','food_image','servings','preparation_time','cooking_time','profile_pic','item_type','direction','ingredients')
+        items = Items.objects.all()
         return render(request,'items.html',{'items':items,'form':form})
 
 def add_author(request,current_user,name):

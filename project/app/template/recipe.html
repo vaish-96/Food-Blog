@@ -25,14 +25,14 @@
     <tbody>
         {% for item in items %}
         <tr>
-            <td><img src="{{ item.item_list.food_image.url }}" width="140" height="160" /></td>
+            <td><img src="{{ item.food_image.url }}" width="140" height="160" /></td>
             <td>
               <ul>
-                <li>Item Name : {{ item.item_list.item_name }}</li>
-                <li>Servings : {{ item.item_list.servings }}</li>
-                <li>Preparation Time : {{ item.item_list.preparation_time }}</li>
-                <li>Cooking Time : {{ item.item_list.cooking_time }}</li>
-                <li>Author : <a href="{% url 'app:authpage' item.id %}">{{ item.item_list.author }}</a></li>
+                <li>Item Name : {{ item.item_name }}</li>
+                <li>Servings : {{ item.servings }}</li>
+                <li>Preparation Time : {{ item.preparation_time }}</li>
+                <li>Cooking Time : {{ item.cooking_time }}</li>
+                <li>Author : <a href="{% url 'app:authpage' item.id %}">{{ item.author }}</a></li>
               </ul>
             </td>
             <td><a href="{% url 'app:viewrecipe' item.id %}"><button type="button" class="btn btn-primary">View</button></a></td>

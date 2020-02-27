@@ -3,8 +3,9 @@ from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
 class Items(models.Model):
-    alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$', 'Only alphanumeric characters are allowed.')
+    alphanumeric = RegexValidator(r'^[0-9a-zA-Z]*$')
     author = models.CharField(max_length=255)
+    user = models.IntegerField(default=1)
     profile_pic = models.ImageField(upload_to='Profile_pic',blank=True)
     item_name = models.CharField(max_length=255)
     servings = models.IntegerField(default=1)
