@@ -1,7 +1,262 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content  %}
-<div class="container-fluid text-right clearfix" style="margin:10px;">
+<style>
+body {
+  background: #F1F3FA;
+}
+
+/* Profile container */
+.profile {
+  margin: 20px 0;
+}
+
+/* Profile sidebar */
+.profile-sidebar {
+  padding: 20px 0 10px 0;
+  background: #fff;
+}
+
+.profile-userpic img {
+  float: none;
+  margin: 0 auto;
+  width: 50%;
+  height: 50%;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important;
+}
+
+.profile-usertitle {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.profile-usertitle-name {
+  color: #5a7391;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.profile-usertitle-job {
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.profile-userbuttons {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.profile-userbuttons .btn {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 15px;
+  margin-right: 5px;
+}
+
+.profile-userbuttons .btn:last-child {
+  margin-right: 0px;
+}
+    
+.profile-usermenu {
+  margin-top: 30px;
+}
+
+.profile-usermenu ul li {
+  border-bottom: 1px solid #f0f4f7;
+}
+
+.profile-usermenu ul li:last-child {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li a {
+  color: #93a3b5;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.profile-usermenu ul li a i {
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.profile-usermenu ul li a:hover {
+  background-color: #fafcfd;
+  color: #5b9bd1;
+}
+
+.profile-usermenu ul li.active {
+  border-bottom: none;
+}
+
+.profile-usermenu ul li.active a {
+  color: #5b9bd1;
+  background-color: #f6f9fb;
+  border-left: 2px solid #5b9bd1;
+  margin-left: -2px;
+}
+
+/* Profile Content */
+.profile-content {
+  padding: 20px;
+  background: #fff;
+  min-height: 460px;
+}
+
+a, button, code, div, img, input, label, li, p, pre, select, span, svg, table, td, textarea, th, ul {
+    -webkit-border-radius: 0!important;
+    -moz-border-radius: 0!important;
+    border-radius: 0!important;
+}
+.dashboard-stat, .portlet {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+.portlet {
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding: 0;
+    border-radius: 4px;
+}
+.portlet.bordered {
+    border-left: 2px solid #e6e9ec!important;
+}
+.portlet.light {
+    padding: 12px 20px 15px;
+    background-color: #fff;
+}
+.portlet.light.bordered {
+    border: 1px solid #e7ecf1!important;
+}
+.list-separated {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.profile-stat {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f0f4f7;
+}
+.profile-stat-title {
+    color: #7f90a4;
+    font-size: 25px;
+    text-align: center;
+}
+.uppercase {
+    text-transform: uppercase!important;
+}
+
+.profile-stat-text {
+    color: #5b9bd1;
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+}
+.profile-desc-title {
+    color: #7f90a4;
+    font-size: 17px;
+    font-weight: 600;
+}
+.profile-desc-text {
+    color: #7e8c9e;
+    font-size: 14px;
+}
+.margin-top-20 {
+    margin-top: 20px!important;
+}
+[class*=" fa-"]:not(.fa-stack), [class*=" glyphicon-"], [class*=" icon-"], [class^=fa-]:not(.fa-stack), [class^=glyphicon-], [class^=icon-] {
+    display: inline-block;
+    line-height: 14px;
+    -webkit-font-smoothing: antialiased;
+}
+.profile-desc-link i {
+    width: 22px;
+    font-size: 19px;
+    color: #abb6c4;
+    margin-right: 5px;
+}
+</style>
+
+<div class="container">
+    <div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<div class="profile-userpic">
+					<img src="{{ items.item_list.profile_pic.url }}" class="img-responsive" alt="">
+				</div>
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						{{ auth }}
+					</div>
+					<div class="profile-usertitle-job">
+						Chef
+					</div>
+				</div>
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li>
+							<a href="#">
+							<i class="fa fa-list" aria-hidden="true"></i>
+							List Of Items</a>
+						</li>
+                        <li>
+							<a href="#" data-toggle="modal" data-target="#settings">
+							<i class="fa fa-user" aria-hidden="true"></i>
+							Add Profile </a>
+						</li>
+						<li>
+							<a href="#" data-toggle="modal" data-target="#settings">
+							<i class='fas fa-user-edit'></i>
+							Edit Profile </a>
+						</li>
+					</ul>
+				</div>
+	   
+<div class="portlet light bordered">
+        <div class="row list-separated profile-stat">
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="uppercase profile-stat-title"> 37 </div>
+                <div class="uppercase profile-stat-text"> Followers</div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="uppercase profile-stat-title"></div>
+                <div class="uppercase profile-stat-text"></div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-6">
+                <div class="uppercase profile-stat-title">2 </div>
+                <div class="uppercase profile-stat-text"> Uploads </div>
+            </div>
+        </div>
+        <div>
+            <h4 class="profile-desc-title">About</h4>
+            <span class="profile-desc-text"> Trained professional cook and tradesman who is proficient in all aspects of food preparation, often focusing on a particular cuisine. </span>
+        <div class="margin-top-20 profile-desc-link">
+            <i class="fa fa-globe"></i>
+            <a href="#">com</a>
+        </div>
+        <div class="margin-top-20 profile-desc-link">
+            <i class="fa fa-twitter"></i>
+            <a href="#">@</a>
+        </div>
+        <div class="margin-top-20 profile-desc-link">
+            <i class="fa fa-facebook"></i>
+            <a href="#"></a>
+        </div>
+        </div>
+</div>                   
+</div>
+</div>
+    <div class="col-md-9">
+        <div class="profile-content">
+            <div class="container-fluid text-right clearfix" style="margin:10px;">
     <h4 style="float: left;margin-left: -22px;">Recipes List </h4>
     <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#addrecipe">
         Add
@@ -15,7 +270,6 @@
             <th>Author</th>
             <th>Image</th>
             <th>Item Name</th>
-            <th>Servings</th>
             <th>Preparation Time</th>
             <th>Cooking Time</th>
             <th>Action</th>
@@ -28,7 +282,6 @@
             <td>{{ item.item_list.author }}</td>
             <td><img src="{{ item.item_list.food_image.url }}" alt="image-{{ item.item_list.item_name }}" width="100" height="110" /></td>
             <td>{{ item.item_list.item_name }}</td>
-            <td>{{ item.item_list.servings }}</td>
             <td>{{ item.item_list.preparation_time }}</td>
             <td>{{ item.item_list.cooking_time }}</td>
             <td data-toggle="tooltip" title="Click to edit">
@@ -256,6 +509,59 @@
     </div>
 </div>
 {% endfor %} 
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal fade" id="settings" tabindex="-1" role="dialog" aria-labelledby="settingsLabel"
+    aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <form action="" name="addrecp" id="addrecp" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="author">Author Name<span style="color:red;">*</span></label>
+                            <input type="text" class="form-control" id="author" name="author" value=""required />
+                        </div>
+                        <div class="col-md-3">
+                            <label for="profile_pic">Upload Profile Pic</label>
+                            {{ form.profile_pic }}
+                        </div>
+                    </div>
+                    <div class="row">
+                    <br>
+                        <div class="col-md-6">
+                        <br>
+                            <label for="ingredients">About You<span style="color:red;">*</span></label>
+                            <textarea wrap="off" name="ingredients" id="ingredients" cols="30" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <br>
+                        <div class="col-md-3">
+                            <label for="item_name"><i class="fa fa-globe"></i></label>
+                            <input type="text" class="form-control" id="item_name" name="item_name" placeholder="www.example.com"required />
+                        </div>
+                        <div class="col-md-3">
+                            <label for="servings"><i class="fa fa-twitter"></i></label>
+                            <input type="text" class="form-control" id="servings" name="servings" placeholder="Twitter Account">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="servings"><i class="fa fa-facebook"></i></label>
+                            <input type="text" class="form-control" id="servings" name="servings" placeholder="Facebook Account">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="save">Save</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <script>
 $('textarea').autoResize();
 </script>

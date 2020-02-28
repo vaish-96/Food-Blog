@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from app.forms import RegisterForm, Profileform
 from django.contrib.auth import authenticate, login
-from app.models import Items, Items_List
+from app.models import Items, Items_List, Profile
 
 def base(request):
     return render(request,'base.html')
@@ -56,7 +56,6 @@ def items(request):
         form = Profileform(request.POST, request.FILES) 
         if form.is_valid():
             item = Items(author=request.POST['author'],
-                        user=request.user.id,
                         profile_pic=request.FILES['profile_pic'],
                         item_name=request.POST['item_name'],
                         servings =request.POST['servings'],
@@ -76,13 +75,9 @@ def items(request):
     else:
         form = Profileform()
         current_user = request.user.id
-        print(current_user)
-        # items = Items_List.objects.all().select_related('item_list').values_list('item_list_id',flat=True).filter(user_name_id = current_user)
-        # auth = Items.objects.values_list('user',flat=True).get(id = current_user)
-        # items = Items.objects.filter(user=auth)
-        # items = Items.objects.all().filter(user=current_user).values('item_name','author','food_image','servings','preparation_time','cooking_time','profile_pic','item_type','direction','ingredients')
-        items = Items.objects.all()
-        return render(request,'items.html',{'items':items,'form':form})
+        items = Items_List.objects.all().select_related('item_list').filter(user_name_id = current_user).order_by('item_list__item_name')
+        lists = Items_List.objects.select_related('item_list')
+        return render(request,'author_items.html',{'items':items,'form':form})
 
 def add_author(request,current_user,name):
     assigndata = Items_List(
@@ -93,24 +88,24 @@ def add_author(request,current_user,name):
 
 def edititems(request, id):
     if request.method == 'POST':
-        item = Items.objects.get(id=id)
-        item.author = request.POST['author']
-        # item.profile_pic = request.FILES['profile_pic']
-        item.item_name = request.POST['item_name']
-        item.servings = request.POST['servings']
-        item.preparation_time = request.POST['preparation_time']
-        item.cooking_time = request.POST['cooking_time']
-        # item.food_image = request.FILES['food_image']
-        item.ingredients = request.POST['ingredients']
-        item.direction = request.POST['direction']
-        item.item_type = request.POST['item_type']
-        item.save()
+        item = Items_List.objects.get(item_list_id = id)
+        item.item_list.author = request.POST['author']
+        # item.item_list.profile_pic = request.FILES['profile_pic']
+        item.item_list.item_name = request.POST['item_name']
+        item.item_list.servings = request.POST['servings']
+        item.item_list.preparation_time = request.POST['preparation_time']
+        item.item_list.cooking_time = request.POST['cooking_time']
+        # item.item_list.food_image = request.FILES['food_image']
+        item.item_list.ingredients = request.POST['ingredients']
+        item.item_list.direction = request.POST['direction']
+        item.item_list.item_type = request.POST['item_type']
+        item.item_list.save()
         return redirect('/items/')
     else:
         return redirect('/items/')
 
 def recipe(request):
-    items = Items.objects.all()
+    items = Items.objects.all().order_by('item_name')
     return render(request,'recipe.html',{'items':items})
 
 def viewrecipe(request,id):
@@ -124,6 +119,35 @@ def authors_page(request,id):
     count = pages.count()
     return render(request,'authors_page.html',{'auth':auth,'pages':pages,'item':item,'count':count})
 
+def addprofile(request):
+    if request.method == 'POST':
+        item = Items(author=request.POST['author'],
+                    profile_pic=request.FILES['profile_pic'],
+                    item_name=request.POST['item_name'],
+                    servings =request.POST['servings'],
+                    preparation_time =request.POST['preparation_time'],
+                    cooking_time =request.POST['cooking_time'],
+                    food_image =request.FILES['food_image'],
+                    ingredients =request.POST['ingredients'],
+                    direction =request.POST['direction'],
+                    item_type =request.POST['item_type'],)
+        current_user = request.user.id
+        item.save()
+        return redirect('/items/')
+    else:
+        return redirect('/items/')
+
+def editprofile(request, id):
+    if request.method == 'POST':
+        item = Items_List.objects.get(item_list_id = id)
+        item.item_list.author = request.POST['author']
+        item.item_list.item_name = request.POST['item_name']
+        item.item_list.servings = request.POST['servings']
+        return redirect('/items/')
+    else:
+        return redirect('/items/')
+
 def logout(request):
     auth.logout(request)
     return redirect('app:home')
+
